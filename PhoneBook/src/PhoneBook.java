@@ -10,30 +10,29 @@ public class PhoneBook {
 
         for (int i = 0; i < book.length; i++) {
             for (int j = 0; j < book[i].length; j++) book[i][j] = " ";
-        }
-        while (true) {
-            Scanner scanner = new Scanner(System.in);
-            boolean isCorrectName = false;
-            System.out.print("Введиде ФИО: ");
-            while (!isCorrectName) {
-                String nameCheck = scanner.nextLine(); //Считывает строку из System.in
-                isCorrectName = checkName(nameCheck);
-                if (!isCorrectName) System.out.println("Введите корректное имя!");
-                else name = formatName(nameCheck);
-            }
+        } //Заполняет масивы пробелами
 
-            boolean isCorrectNumber = false;
-            System.out.print("Введите номер: ");
-            while (!isCorrectNumber) {
-                String phoneNumber = scanner.nextLine(); //Считывает строку из System.in
-                isCorrectNumber = checkPhoneNumber(phoneNumber);
-                if (!isCorrectNumber) System.out.println("Введите корректный номер!");
-                else number = formatPhoneNumber(phoneNumber);
-            }
-
-            add(book, name, number);
-            list(book);
+        Scanner scanner = new Scanner(System.in);
+        boolean isCorrectName = false;
+        System.out.print("Введиде ФИО: ");
+        while (!isCorrectName) {
+            String nameCheck = scanner.nextLine(); //Считывает строку из System.in
+            isCorrectName = checkName(nameCheck);
+            if (!isCorrectName) System.out.println("Введите корректное имя!");
+            else name = formatName(nameCheck);
         }
+
+        boolean isCorrectNumber = false;
+        System.out.print("Введите номер: ");
+        while (!isCorrectNumber) {
+            String phoneNumber = scanner.nextLine(); //Считывает строку из System.in
+            isCorrectNumber = checkPhoneNumber(phoneNumber);
+            if (!isCorrectNumber) System.out.println("Введите корректный номер!");
+            else number = formatPhoneNumber(phoneNumber);
+        }
+
+        add(book, name, number);
+        list(book);
     }
 
     public static boolean checkPhoneNumber(String phoneNumber) {
@@ -98,5 +97,14 @@ public class PhoneBook {
             System.out.print(book[i][0] + ": " + book[i][1]);
             System.out.println();
         }
+    }
+
+    public static boolean CheckNameFormat (String inputString) {
+        if (checkName(formatName(inputString))) return true;
+        else return false;
+    }
+    public static boolean CheckNumberFormat (String inputString) {
+        if (checkPhoneNumber(formatPhoneNumber(inputString))) return true;
+        else return false;
     }
 }
