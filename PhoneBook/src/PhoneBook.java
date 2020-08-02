@@ -93,11 +93,9 @@ public class PhoneBook {
 
     public static void list(String[][] book) {
         for (int i = 0; i < book.length; i++) {
-            for (int j = 0; j < book[i].length; j++) {
-                System.out.print(book[i][j]);
-                System.out.println();
-            }
             if (book[i][0].equals(" ")) break;
+            System.out.print(book[i][0] + ": " + book[i][1]);
+            System.out.println();
         }
     }
 }
