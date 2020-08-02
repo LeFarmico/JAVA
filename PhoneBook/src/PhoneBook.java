@@ -7,6 +7,7 @@ public class PhoneBook {
 
         Scanner scanner = new Scanner(System.in);
         boolean isCorrectName = false;
+        System.out.print("Введиде ФИО: ");
         while (!isCorrectName) {
             String name = scanner.nextLine(); //Считывает строку из System.in
             isCorrectName = checkName(name);
@@ -14,6 +15,17 @@ public class PhoneBook {
                 System.out.println("Введите корректное имя!");
             } else {
                 System.out.println(formatName(name));
+            }
+        }
+        boolean isCorrectNumber = false;
+        System.out.println("Введите номер: ");
+        while (!isCorrectNumber) {
+            String phoneNumber = scanner.nextLine(); //Считывает строку из System.in
+            isCorrectNumber = checkPhoneNumber(phoneNumber);
+            if (!isCorrectNumber) {
+                System.out.println("Введите корректный номер!");
+            } else {
+                System.out.println(formatPhoneNumber(phoneNumber));
             }
         }
     }
