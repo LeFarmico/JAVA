@@ -4,30 +4,35 @@ import java.util.Arrays;
 public class PhoneBook {
 
     public static void main(String[] args) {
-
+        String[][] book = new String[100][2];
+        for (int i = 0; i < book.length; i++) {
+            for (int j = 0; j < book[i].length; j++) {
+                book[i][j] = " ";
+            }
+        }
+        String name = "";
+        String number = "";
         Scanner scanner = new Scanner(System.in);
         boolean isCorrectName = false;
         System.out.print("Введиде ФИО: ");
         while (!isCorrectName) {
-            String name = scanner.nextLine(); //Считывает строку из System.in
-            isCorrectName = checkName(name);
-            if (!isCorrectName) {
-                System.out.println("Введите корректное имя!");
-            } else {
-                System.out.println(formatName(name));
-            }
+            String nameCheck = scanner.nextLine(); //Считывает строку из System.in
+            isCorrectName = checkName(nameCheck);
+            if (!isCorrectName) System.out.println("Введите корректное имя!");
+            else name = formatName(nameCheck);
         }
+
         boolean isCorrectNumber = false;
         System.out.print("Введите номер: ");
         while (!isCorrectNumber) {
             String phoneNumber = scanner.nextLine(); //Считывает строку из System.in
             isCorrectNumber = checkPhoneNumber(phoneNumber);
-            if (!isCorrectNumber) {
-                System.out.println("Введите корректный номер!");
-            } else {
-                System.out.println(formatPhoneNumber(phoneNumber));
-            }
+            if (!isCorrectNumber) System.out.println("Введите корректный номер!");
+            else number = formatPhoneNumber(phoneNumber);
         }
+
+        add(book, name, number);
+        list(book);
     }
 
     public static boolean checkPhoneNumber(String phoneNumber) {
@@ -67,10 +72,32 @@ public class PhoneBook {
     }
 
     public static void add(String[][] book, String name, String number) {
-        //add logic
+        for (int i = 0; i < book.length; i++){
+            if (book[i][0].equals(" ")){
+                book[i][0] = name;
+                book[i][1] = number;
+                break;
+            }
+            else {
+                String[][] newBook = new String[book.length+100][2];
+                for (int j = 0; j < book.length; j++){
+                    newBook[j][0] = book[j][0];
+                    newBook[j][1] = book[j][1];
+                }
+                newBook[book.length][0] = name;
+                newBook[book.length][1] = number;
+                book = newBook;
+            }
+        }
     }
 
     public static void list(String[][] book) {
-        //print phone book
+        for (int i = 0; i < book.length; i++) {
+            for (int j = 0; j < book[i].length; j++) {
+                System.out.print(book[i][j]);
+                System.out.println();
+            }
+            if (book[i][0].equals(" ")) break;
+        }
     }
 }
