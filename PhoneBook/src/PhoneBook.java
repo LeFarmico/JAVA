@@ -18,7 +18,7 @@ public class PhoneBook {
             }
         }
         boolean isCorrectNumber = false;
-        System.out.println("Введите номер: ");
+        System.out.print("Введите номер: ");
         while (!isCorrectNumber) {
             String phoneNumber = scanner.nextLine(); //Считывает строку из System.in
             isCorrectNumber = checkPhoneNumber(phoneNumber);
@@ -51,7 +51,7 @@ public class PhoneBook {
                 result += Character.toUpperCase(firstLetter) + name[i].substring(1) + " ";
             }
             else{
-                result += name[i].substring(1) + " ";
+                result += firstLetter + name[i].substring(1) + " ";
             }
         }
         return result;
@@ -59,7 +59,7 @@ public class PhoneBook {
 
     public static String formatPhoneNumber(String phoneNumber) {
         String cleanNumber = phoneNumber.replaceAll("[^0-9]", "");
-        String result = cleanNumber.substring(1,4) + " " +
+        String result = "+7 " + cleanNumber.substring(1,4) + " " +
                 cleanNumber.substring(4,7) + " " +
                 cleanNumber.substring(7,9) + " " +
                 cleanNumber.substring(9);
