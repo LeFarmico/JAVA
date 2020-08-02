@@ -1,38 +1,39 @@
 import java.util.Scanner;
-import java.util.Arrays;
+
 
 public class PhoneBook {
 
     public static void main(String[] args) {
-        String[][] book = new String[100][2];
-        for (int i = 0; i < book.length; i++) {
-            for (int j = 0; j < book[i].length; j++) {
-                book[i][j] = " ";
-            }
-        }
         String name = "";
         String number = "";
-        Scanner scanner = new Scanner(System.in);
-        boolean isCorrectName = false;
-        System.out.print("Введиде ФИО: ");
-        while (!isCorrectName) {
-            String nameCheck = scanner.nextLine(); //Считывает строку из System.in
-            isCorrectName = checkName(nameCheck);
-            if (!isCorrectName) System.out.println("Введите корректное имя!");
-            else name = formatName(nameCheck);
-        }
+        String[][] book = new String[100][2];
 
-        boolean isCorrectNumber = false;
-        System.out.print("Введите номер: ");
-        while (!isCorrectNumber) {
-            String phoneNumber = scanner.nextLine(); //Считывает строку из System.in
-            isCorrectNumber = checkPhoneNumber(phoneNumber);
-            if (!isCorrectNumber) System.out.println("Введите корректный номер!");
-            else number = formatPhoneNumber(phoneNumber);
+        for (int i = 0; i < book.length; i++) {
+            for (int j = 0; j < book[i].length; j++) book[i][j] = " ";
         }
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            boolean isCorrectName = false;
+            System.out.print("Введиде ФИО: ");
+            while (!isCorrectName) {
+                String nameCheck = scanner.nextLine(); //Считывает строку из System.in
+                isCorrectName = checkName(nameCheck);
+                if (!isCorrectName) System.out.println("Введите корректное имя!");
+                else name = formatName(nameCheck);
+            }
 
-        add(book, name, number);
-        list(book);
+            boolean isCorrectNumber = false;
+            System.out.print("Введите номер: ");
+            while (!isCorrectNumber) {
+                String phoneNumber = scanner.nextLine(); //Считывает строку из System.in
+                isCorrectNumber = checkPhoneNumber(phoneNumber);
+                if (!isCorrectNumber) System.out.println("Введите корректный номер!");
+                else number = formatPhoneNumber(phoneNumber);
+            }
+
+            add(book, name, number);
+            list(book);
+        }
     }
 
     public static boolean checkPhoneNumber(String phoneNumber) {
@@ -78,7 +79,7 @@ public class PhoneBook {
                 book[i][1] = number;
                 break;
             }
-            else {
+            if(!book[book.length-1][0].equals(" ")) {
                 String[][] newBook = new String[book.length+100][2];
                 for (int j = 0; j < book.length; j++){
                     newBook[j][0] = book[j][0];
