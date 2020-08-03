@@ -12,27 +12,37 @@ public class PhoneBook {
             for (int j = 0; j < book[i].length; j++) book[i][j] = " ";
         } //Заполняет масивы пробелами
 
-        Scanner scanner = new Scanner(System.in);
-        boolean isCorrectName = false;
-        System.out.print("Введиде ФИО: ");
-        while (!isCorrectName) {
-            String nameCheck = scanner.nextLine(); //Считывает строку из System.in
-            isCorrectName = checkName(nameCheck);
-            if (!isCorrectName) System.out.println("Введите корректное имя!");
-            else name = formatName(nameCheck);
-        }
+        while (true) {
 
-        boolean isCorrectNumber = false;
-        System.out.print("Введите номер: ");
-        while (!isCorrectNumber) {
-            String phoneNumber = scanner.nextLine(); //Считывает строку из System.in
-            isCorrectNumber = checkPhoneNumber(phoneNumber);
-            if (!isCorrectNumber) System.out.println("Введите корректный номер!");
-            else number = formatPhoneNumber(phoneNumber);
-        }
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Введиде ФИО либо номер: ");
+            String inputLine = scanner.nextLine();
 
-        add(book, name, number);
-        list(book);
+            if (checkNameFormat(inputLine)) {
+                name = formatName(inputLine);
+                boolean isCorrectNumber = false;
+                System.out.println("Создание нового контакта!");
+                System.out.print("Введите номер: ");
+                while (!isCorrectNumber) {
+                    String phoneNumber = scanner.nextLine(); //Считывает строку из System.in
+                    isCorrectNumber = checkPhoneNumber(phoneNumber);
+                    if (!isCorrectNumber) System.out.println("Введите корректный номер!");
+                    else number = formatPhoneNumber(phoneNumber);
+                }
+                add(book, name, number);
+            }
+            else if (checkNumberFormat(inputLine)) {
+                findInBook(book, formatPhoneNumber(inputLine));
+            }
+            else if (inputLine.equals("list")){
+                list(book);
+            }
+            else if (inputLine.equals("stop")){
+                break;
+            }
+            else System.out.println("Введите коректные данные");
+
+        }
     }
 
     public static boolean checkPhoneNumber(String phoneNumber) {
@@ -99,12 +109,26 @@ public class PhoneBook {
         }
     }
 
-    public static boolean CheckNameFormat (String inputString) {
+    public static boolean checkNameFormat(String inputString) {
         if (checkName(formatName(inputString))) return true;
         else return false;
     }
-    public static boolean CheckNumberFormat (String inputString) {
-        if (checkPhoneNumber(formatPhoneNumber(inputString))) return true;
+
+    public static boolean checkNumberFormat(String inputString) {
+        if (checkPhoneNumber(inputString)) return true;
         else return false;
+    }
+
+    public  static void findInBook(String[][] book, String number){
+        for (int i = 0; i < book.length; i++) {
+            if(book[i][1].equals(number)){
+                System.out.println(book[i][0] + ": " + book[i][1]);
+                break;
+            }
+            else {
+                System.out.println("Данный номер не найден!");
+                break;
+            }
+        }
     }
 }
