@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -12,7 +13,12 @@ public class PhoneBook {
             for (int j = 0; j < book[i].length; j++) book[i][j] = " ";
         } //Заполняет масивы пробелами
 
+        book[0] = new String[]{"Eva Vorobiev Yurievich", "+7 852 741 25 45"};
+        book[1] = new String[]{"Zhenya Vorobiev Yurievich", "+7 852 741 25 45"};
+        book[2] = new String[]{"Artsiom Zharnikovich Yurievich", "+7 358 741 25 45"};
+
         while (true) {
+            bookSort(book);
 
             Scanner scanner = new Scanner(System.in);
             System.out.print("Введиде ФИО либо номер: ");
@@ -103,7 +109,7 @@ public class PhoneBook {
 
     public static void list(String[][] book) {
         for (int i = 0; i < book.length; i++) {
-            if (book[i][0].equals(" ")) break;
+            if (book[i][0].equals(" ")) continue;
             System.out.print(book[i][0] + ": " + book[i][1]);
             System.out.println();
         }
@@ -130,5 +136,29 @@ public class PhoneBook {
                 break;
             }
         }
+    }
+
+    public static String[][] bookSort(String[][] book){
+        boolean hasChanged = true;
+        if (book.length <= 1) return book;
+        while (hasChanged) {
+            hasChanged = false;
+            for (int i = 0; i < book.length-1; i++) {
+                if(!book[i+1][0].equals(" ")) {
+                    for (int j = 0; j < book[i][0].length(); j++) {
+                        if (book[i][0].charAt(j) > book[i + 1][0].charAt(j)) {
+                            System.out.println("Перемена " + book[i][0] + " / " + book[i + 1][0] + " / " + book[i][0].charAt(j) + " / " + book[i + 1][0].charAt(j));
+                            String temp[] = book[i];
+                            book[i] = book[i + 1];
+                            book[i + 1] = temp;
+                            hasChanged = true;
+                            break;
+                        }
+                        else break;
+                    }
+                }
+            }
+        }
+        return book;
     }
 }
