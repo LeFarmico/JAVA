@@ -8,9 +8,14 @@ public class StudentStorage {
     }
 
     public void addStudent(String data) {
-        String[] components = data.split("\\s+");
-        String name = components[0] + " " + components[1];
-        storage.put(name, new Student(name, components[3], components[2]));
+        try{
+            String[] components = data.split("\\s+");
+            String name = components[0] + " " + components[1];
+            storage.put(name, new Student(name, components[3], components[2]));
+        }catch (ArrayIndexOutOfBoundsException | NullPointerException e){
+            System.out.println(e.toString());
+        }
+
     }
 
     public void listStudent() {

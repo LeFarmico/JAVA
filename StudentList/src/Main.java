@@ -13,23 +13,29 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         StudentStorage executor = new StudentStorage();
         while (true) {
-            String command = scanner.nextLine();
-            String[] tokens = command.split("\\s+", 2);
-            if (tokens[0].equals("add")) {
-                executor.addStudent(tokens[1]);
-            } else if (tokens[0].equals("list")) {
-                executor.listStudent();
-            } else if (tokens[0].equals("get")) {
-                executor.getStudentByName(tokens[1]).toString();
-            } else if (tokens[0].equals("remove")) {
-                executor.removeStudent(tokens[1]);
-            } else if (tokens[0].equals("count")) {
-                System.out.println("There are " + executor.getCount() + " customers");
-            } else if (tokens[0].equals("help")) {
-                System.out.println(helpText);
-            } else {
-                System.out.println(commandError);
+            try {
+                String command = scanner.nextLine();
+                String[] tokens = command.split("\\s+", 2);
+                if (tokens[0].equals("add")) {
+                    executor.addStudent(tokens[1]);
+                } else if (tokens[0].equals("list")) {
+                    executor.listStudent();
+                } else if (tokens[0].equals("get")) {
+                    executor.getStudentByName(tokens[1]).toString();
+                } else if (tokens[0].equals("remove")) {
+                    executor.removeStudent(tokens[1]);
+                } else if (tokens[0].equals("count")) {
+                    System.out.println("There are " + executor.getCount() + " customers");
+                } else if (tokens[0].equals("help")) {
+                    System.out.println(helpText);
+                } else {
+                    System.out.println(commandError);
+                }
+            }catch (ArrayIndexOutOfBoundsException | NullPointerException e){
+                System.out.println(e.toString());
             }
+
+
         }
     }
 }
